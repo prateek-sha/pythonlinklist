@@ -1,0 +1,80 @@
+class node:
+    def __init__(self,data):
+        self.data = data
+        self.Next = None
+        
+class linkedlist:
+    def __init__(self):
+        self.head = None
+        
+    def printlist(self):
+        cur_node = self.head
+        while cur_node:
+            print(cur_node.data)
+            cur_node = cur_node.Next
+
+    def append(self,data):
+        new_node = node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+        last_node = self.head
+        while last_node.Next:
+            last_node=last_node.Next
+        last_node.Next = new_node
+        
+    def prepend(self , data):
+        new_node = node(data)
+        new_node.Next = self.head 
+        self.head = new_node
+        
+    def insert_after_node (self,pnode,data):
+        if not pnode: 
+            print("there no node")
+            return
+        new_node = node(data)
+        new_node.Next = pnode.Next
+        pnode.Next = new_node
+        
+    def delete(self,key):
+        cur_node = self.head
+        if cur_node and cur_node.data == key:
+            self.head = cur_node.Next
+            cur_node = None
+            return
+        pnode = None
+        while cur_node and cur_node != key:
+            pnode = cur_node
+            cur_node = cur_node.Next
+        if cur_node is None:
+            return
+        pnode.Next = cur_node.Next
+        cur_node = None
+        
+    def delete_pos(self,pos):
+        cur_node=self.head
+        if cur_node and pos == 0:
+            self.head=cur_node.Next
+            cur_node=None
+            return
+        pnode = None
+        i=1
+        while cur_node and i != pos:
+            pnode = cur_node
+            i+= 1
+            cur_node = cur_node.Next
+        if cur_node is None:
+            return
+        pnode.Next=cur_node.Next
+        cur_node=None
+        
+            
+            
+        
+llist = linkedlist()
+llist.append("a")
+llist.append("b")
+llist.prepend("h")
+llist.insert_after_node(llist.head.Next,"j")
+llist.delete_pos(2)
+llist.printlist()
